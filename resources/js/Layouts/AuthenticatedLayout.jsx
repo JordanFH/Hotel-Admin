@@ -7,11 +7,11 @@ import AppLink from "@/Components/AppLink";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faBars,
-    faBlackboard,
     faBox,
     faClipboardList,
     faClose,
     faHome,
+    faHotel,
     faTags,
     faTools,
     faUser,
@@ -97,11 +97,11 @@ export default function Authenticated({ auth, header, children }) {
                                 </button>
                                 <div className="hidden sm:flex md:mr-24">
                                     <FontAwesomeIcon
-                                        icon={faBlackboard}
-                                        className="py-1 mr-3 text-xl sm:text-2xl dark:text-white"
+                                        icon={faHotel}
+                                        className="py-1 mr-3 text-xl sm:text-2xl dark:text-sky-400 text-sky-500"
                                     />
                                     <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                                        Aula Virtual
+                                        Hotel Admin
                                     </span>
                                 </div>
                             </div>
@@ -230,13 +230,13 @@ export default function Authenticated({ auth, header, children }) {
                     >
                         <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
                             <div className="flex justify-between items-center mb-5">
-                                <div className="sm:mt-5 mt-0 flex md:mr-24">
+                                {/* <div className="sm:mt-5 mt-0 flex md:mr-24">
                                     <img
                                         src={logo}
                                         className="h-10"
                                         alt="ILEG Logo"
                                     />
-                                </div>
+                                </div> */}
                                 <button
                                     data-drawer-target="logo-sidebar"
                                     data-drawer-toggle="logo-sidebar"
