@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "@/assets/logo.png";
+import logo from "../../assets/hotel-logo.png";
 import Dropdown from "@/Components/Dropdown";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import Switcher from "@/Components/DarkMode";
@@ -96,9 +96,10 @@ export default function Authenticated({ auth, header, children }) {
                                     />
                                 </button>
                                 <div className="hidden sm:flex md:mr-24">
-                                    <FontAwesomeIcon
-                                        icon={faHotel}
-                                        className="py-1 mr-3 text-xl sm:text-2xl dark:text-sky-400 text-sky-500"
+                                    <img
+                                        src={logo}
+                                        className="h-10 mr-2"
+                                        alt="ILEG Logo"
                                     />
                                     <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                                         Hotel Admin

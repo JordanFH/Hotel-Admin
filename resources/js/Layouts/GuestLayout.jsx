@@ -1,4 +1,4 @@
-import logo from "@/assets/logo.png";
+import logo from "../../assets/hotel-logo.png";
 import { Link } from "@inertiajs/react";
 import { useState, useEffect } from "react";
 
@@ -40,7 +40,7 @@ export default function Guest({ children }) {
                 <Link href="/">
                     <img
                         src={logo}
-                        className="flex mx-auto"
+                        className="flex mx-auto py-4"
                         alt="Logo ILEG"
                         width="175px"
                     />

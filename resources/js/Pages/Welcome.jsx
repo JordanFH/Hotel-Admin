@@ -1,7 +1,9 @@
 import { Link, Head } from "@inertiajs/react";
-import background from "../assets/background.jpg";
-import logo from "../assets/logo.png";
+import background from "../../assets/background.jpg";
+import logo from "../../assets/hotel-logo.png";
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHotel } from "@fortawesome/free-solid-svg-icons";
 
 export default function Welcome(props) {
     const date = new Date();
@@ -63,8 +65,8 @@ export default function Welcome(props) {
                             <div>
                                 <img
                                     src={logo}
-                                    className="flex mx-auto"
-                                    alt="Logo ILEG"
+                                    className="flex mx-auto py-4"
+                                    alt="Hotel logo"
                                     width="175px"
                                 />
                                 <h2 className="mt-4 text-xl font-semibold text-gray-900 dark:text-white">
@@ -76,14 +78,14 @@ export default function Welcome(props) {
                                     {props.auth.user ? (
                                         <>
                                             {greeting}, has iniciado sesión.
-                                            Puedes ingresar <br /> a la aula virtual
-                                            de ILEG.
+                                            Puedes ingresar <br /> a la aula
+                                            virtual de ILEG.
                                         </>
                                     ) : (
                                         <>
                                             {greeting}, debes iniciar sesión
-                                            para poder ingresar <br /> a la aula virtual
-                                            de ILEG.
+                                            para poder ingresar <br /> a la aula
+                                            virtual de ILEG.
                                         </>
                                     )}
                                 </p>
