@@ -119,12 +119,6 @@ class ProductoController extends Controller
             abort(404);
         }
 
-        //validar si hay detalles con el producto en ese caso no eliminar o dar opcion de eliminar todos
-        $productoDetalle = ProductoDetalle::where('producto_id', $id)->first();
-        if($productoDetalle){
-            abort(409, 'No se puede eliminar el producto porque tiene detalles asociados');
-        }
-
         $producto->delete();
 
         return response()->noContent();
