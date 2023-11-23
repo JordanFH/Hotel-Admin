@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportCotizacionController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -41,6 +42,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
+    // Ruta para obtener los roles del usuario actual
+    Route::middleware('auth')->get('/user-info', [UserController::class, 'info']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -53,10 +56,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('cotizaciones', CotizacionController::class)->names('cotizaciones');
 
     //para cotizacion
-    Route::get('/report/cotizacion', [ReportCotizacionController::class,'report'])->name('cotizaciones.report');
+    Route::get('/report/cotizacion', [ReportCotizacionController::class, 'report'])->name('cotizaciones.report');
     Route::get('/report/cotizacion/edit/{cotizacion_id}', [ReportCotizacionController::class, 'reportEdit'])->name('cotizaciones.edit.report');
     Route::resource('cotizaciondetalles', CotizacionDetalleController::class); //->only(['store', 'update', 'destroy']);
-    Route::post('/cotizaciones/detalles/{id}', [CotizacionDetalleController::class,'storeDetalle'])->name('cotizaciones.storeDetalle');
+    Route::post('/cotizaciones/detalles/{id}', [CotizacionDetalleController::class, 'storeDetalle'])->name('cotizaciones.storeDetalle');
 });
 
 require __DIR__ . '/auth.php';

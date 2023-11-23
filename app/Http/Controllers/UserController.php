@@ -127,4 +127,23 @@ class UserController extends Controller
 
         return response()->noContent();
     }
+
+    // Función para devolver los roles del usuario actual
+    public function info()
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            $user->load('roles');
+
+            $user = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'roles' => $user->roles,
+            ];
+        }
+
+        return response()->json($user);
+    }
 }
