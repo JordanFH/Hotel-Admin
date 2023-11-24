@@ -135,13 +135,6 @@ class UserController extends Controller
 
         if ($user) {
             $user->load('roles');
-
-            $user = [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'roles' => $user->roles,
-            ];
         }
 
         return response()->json($user);

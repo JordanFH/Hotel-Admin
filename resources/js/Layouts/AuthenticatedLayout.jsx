@@ -21,10 +21,16 @@ import {
 import { useMediaQuery } from "react-responsive";
 import NProgress from "nprogress";
 
-import { getUserInfo } from "../Utils/userInfoUtils";
-
 export default function Authenticated({ auth, header, children }) {
+    const [isAdmin, setIsAdmin] = useState(false);
 
+    function handleIsAdmin() {
+        if (auth.user && auth.user.roles) {
+            auth.user.roles[0].name === "Admin"
+                ? setIsAdmin(true)
+                : setIsAdmin(false);
+        }
+    }
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -347,15 +353,15 @@ export default function Authenticated({ auth, header, children }) {
                                         </span>
                                     </AppLink>
                                 </li>
-
-                                {auth.user.role === "Admin" && (
-                                    <React.Fragment>
+                                {auth.user.roles[0].name === "Admin" && (
+                                    <>
+                                        <hr className="border-gray-800 dark:border-gray-400" />
                                         <li>
                                             <AppLink
-                                                href={route("usuarios.index")}
+                                                href={route("users.index")}
                                                 active={route()
                                                     .current()
-                                                    .includes("usuarios")}
+                                                    .includes("users")}
                                             >
                                                 <FontAwesomeIcon
                                                     icon={faUserGroup}
@@ -366,7 +372,6 @@ export default function Authenticated({ auth, header, children }) {
                                                 </span>
                                             </AppLink>
                                         </li>
-                                        <hr className="border-gray-800 dark:border-gray-400" />
                                         <li>
                                             <AppLink
                                                 href={route("roles.index")}
@@ -383,7 +388,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 </span>
                                             </AppLink>
                                         </li>
-                                    </React.Fragment>
+                                    </>
                                 )}
                             </ul>
                         </div>
