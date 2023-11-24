@@ -1,9 +1,9 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Dashboard(props) {
     return (
-        <AuthenticatedLayout
+        <Authenticated
             auth={props.auth}
             errors={props.errors}
             header={
@@ -20,9 +20,10 @@ export default function Dashboard(props) {
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             ¡Bienvenido {props.auth.user.name}!
                         </div>
+                        {console.log(props.auth)}
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </Authenticated>
     );
 }
