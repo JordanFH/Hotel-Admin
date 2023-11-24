@@ -42,8 +42,6 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
-    // Ruta para obtener los roles del usuario actual
-    Route::middleware('auth')->get('/user-info', [UserController::class, 'info']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
