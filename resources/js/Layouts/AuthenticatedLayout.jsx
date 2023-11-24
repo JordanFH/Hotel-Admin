@@ -22,13 +22,15 @@ import { useMediaQuery } from "react-responsive";
 import NProgress from "nprogress";
 
 export default function Authenticated({ auth, header, children }) {
-    const [isAdmin, setIsAdmin] = useState(false);
-
     function handleIsAdmin() {
         if (auth.user && auth.user.roles) {
-            auth.user.roles[0].name === "Admin"
-                ? setIsAdmin(true)
-                : setIsAdmin(false);
+            if (auth.user.roles[0]) {
+                if (auth.user.roles[0].name === "Admin") {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         }
     }
 
@@ -353,7 +355,7 @@ export default function Authenticated({ auth, header, children }) {
                                         </span>
                                     </AppLink>
                                 </li>
-                                {auth.user.roles[0].name === "Admin" && (
+                                {handleIsAdmin() && (
                                     <>
                                         <hr className="border-gray-800 dark:border-gray-400" />
                                         <li>
