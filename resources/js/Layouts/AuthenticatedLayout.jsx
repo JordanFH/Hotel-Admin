@@ -23,15 +23,19 @@ import NProgress from "nprogress";
 
 export default function Authenticated({ auth, header, children }) {
     function handleIsAdmin() {
-        if (auth.user && auth.user.roles) {
-            if (auth.user.roles[0]) {
+        if (auth.user) {
+            if (auth.user.roles && auth.user.roles[0]) {
                 if (auth.user.roles[0].name === "Admin") {
+                    console.log("auth.user:", auth.user);
+        console.log("auth.user.roles:", auth.user.roles);
                     return true;
                 } else {
                     return false;
                 }
             }
         }
+        console.log("auth.user:", auth.user);
+        console.log("auth.user.roles:", auth.user.roles);
     }
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
