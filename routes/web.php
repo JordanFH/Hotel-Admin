@@ -27,7 +27,12 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     if (Auth::check()) { // Verificar si el usuario está autenticado
-        return redirect()->route('dashboard'); // Redirigir al dashboard
+
+        // Si no tiene permiso para acceder al dashboard, redirigir a la página de perfil
+        if (!Auth::user()->can('dashboard')) {
+            return redirect()->route('profile.edit');
+        }
+        return redirect()->route('dashboard');
     }
 
     return Inertia::render('Welcome', [
@@ -44,17 +49,18 @@ Route::get('/dashboard', function () {
         ])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::resource('roles', RoleController::class)->names('roles');
     Route::resource('users', UserController::class);
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::resource('categorias', CategoriaController::class);
     Route::resource('servicios', ServicioController::class)->names('servicios');
     Route::resource('productos', ProductoController::class)->names('productos');
     Route::resource('clientes', ClienteController::class)->names('clientes');
     Route::resource('cotizaciones', CotizacionController::class)->names('cotizaciones');
-    Route::resource('roles', RoleController::class)->names('roles');
+
 
     //para cotizacion
     Route::get('/report/cotizacion', [ReportCotizacionController::class, 'report'])->name('cotizaciones.report');

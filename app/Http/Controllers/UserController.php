@@ -14,11 +14,11 @@ class UserController extends Controller
     {
         // Solo permitir a los usuarios con el rol de administrador acceder a todas estas rutas
         $this->middleware('can:users')->only('index');
-        $this->middleware('users.create')->only('create');
-        $this->middleware('users.store')->only('store');
-        $this->middleware('users.edit')->only('edit');
-        $this->middleware('users.update')->only('update');
-        $this->middleware('users.destroy')->only('destroy');
+        $this->middleware('can:users.create')->only('create');
+        $this->middleware('can:users.store')->only('store');
+        $this->middleware('can:users.edit')->only('edit');
+        $this->middleware('can:users.update')->only('update');
+        $this->middleware('can:users.destroy')->only('destroy');
     }
     /**
      * Display a listing of the resource.
