@@ -22,7 +22,7 @@ class RoleController extends Controller
     {
         // mostrar todos los roles menos el de administrador
         return Inertia::render('Roles/Index', [
-            'roles' => Role::where('name', '!=', 'Admin')->where('name', '!=', 'User')->orderBy('name')->get(),
+            'roles' => Role::where('name', '!=', 'Admin')->where('name', '!=', 'User')->where('name', '!=', 'SuperAdmin')->with('permissions')->get()
         ]);
     }
 
@@ -31,8 +31,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Roles/Create',
-            ['permissions' => Permission::all()]);
+        return Inertia::render(
+            'Roles/Create',
+            ['permissions' => Permission::all()]
+        );
     }
 
     /**
