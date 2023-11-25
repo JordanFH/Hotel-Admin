@@ -50,9 +50,6 @@ export default function Dashboard(props) {
         return Array.from(categories);
     }
 
-    const categories = getPermissionCategories(permissions);
-    console.log(categories);
-
     function groupPermissions(permissions) {
         const groupedPermissions = {};
 

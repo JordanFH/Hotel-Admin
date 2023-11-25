@@ -24,9 +24,9 @@ class RoleSeeder extends Seeder
         // Buscar o crear el permiso para las rutas de dashboard y profile
         Permission::findOrCreate('dashboard', 'web')->syncRoles([$role0, $role1, $role2]);
 
-        // Permission::findOrCreate('profile.edit', 'web')->syncRoles([$role0, $role1, $role2]);
-        // Permission::findOrCreate('profile.update', 'web')->syncRoles([$role0, $role1, $role2]);
-        // Permission::findOrCreate('profile.destroy', 'web')->syncRoles([$role0, $role1, $role2]);
+        Permission::findOrCreate('profile.edit', 'web')->syncRoles([$role0, $role1, $role2]);
+        Permission::findOrCreate('profile.update', 'web')->syncRoles([$role0, $role1, $role2]);
+        Permission::findOrCreate('profile.destroy', 'web')->syncRoles([$role0, $role1, $role2]);
 
         // Buscar o crear el permiso para las rutas de categorias
         Permission::findOrCreate('categorias', 'web')->syncRoles([$role0, $role1, $role2]);

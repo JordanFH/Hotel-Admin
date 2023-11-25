@@ -15,8 +15,9 @@ class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
-        $this->middleware('role:SuperAdmin|Admin|User');
+        $this->middleware('can:profile.edit')->only('edit');
+        $this->middleware('can:profile.update')->only('update');
+        $this->middleware('can:profile.destroy')->only('destroy');
     }
 
     /**

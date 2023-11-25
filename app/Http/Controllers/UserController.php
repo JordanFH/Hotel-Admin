@@ -13,7 +13,12 @@ class UserController extends Controller
     public function __construct()
     {
         // Solo permitir a los usuarios con el rol de administrador acceder a todas estas rutas
-        $this->middleware(['auth', 'role:SuperAdmin|Admin']);
+        $this->middleware('can:users')->only('index');
+        $this->middleware('users.create')->only('create');
+        $this->middleware('users.store')->only('store');
+        $this->middleware('users.edit')->only('edit');
+        $this->middleware('users.update')->only('update');
+        $this->middleware('users.destroy')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -28,7 +33,7 @@ class UserController extends Controller
                 ->orderBy('name')
                 ->with('roles')
                 ->get();
-        } else if (Auth::user()->hasRole('Admin')) {
+        } else {
             $users = User::where('id', '!=', Auth::user()->id)
                 ->whereHas('roles', function ($query) {
                     $query->where('name', '!=', 'SuperAdmin')

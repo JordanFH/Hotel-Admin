@@ -38,7 +38,10 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified', 'role:SuperAdmin|Admin|User'])->name('dashboard');
+})->middleware([
+            'auth',
+            'can:dashboard'
+        ])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);

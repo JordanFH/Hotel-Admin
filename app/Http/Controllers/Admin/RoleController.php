@@ -21,9 +21,16 @@ class RoleController extends Controller
     public function index()
     {
         // mostrar todos los roles menos el de administrador
+        $roles = Role::where('name', '!=', 'Admin')
+            ->where('name', '!=', 'User')
+            ->where('name', '!=', 'SuperAdmin')
+            ->with('permissions')
+            ->get();
+
         return Inertia::render('Roles/Index', [
-            'roles' => Role::where('name', '!=', 'Admin')->where('name', '!=', 'User')->where('name', '!=', 'SuperAdmin')->with('permissions')->get()
+            'roles' => $roles,
         ]);
+
     }
 
     /**
