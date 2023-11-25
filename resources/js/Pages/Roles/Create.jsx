@@ -50,7 +50,7 @@ export default function Dashboard(props) {
         return Array.from(categories);
     }
 
-    function groupPermissions(permissions) {
+    function groupPermissions1(permissions) {
         const excludedPermissions = [
             "profile.edit",
             "profile.update",
@@ -61,6 +61,34 @@ export default function Dashboard(props) {
 
         permissions.forEach((permission) => {
             const category = permission.name.split(".")[0];
+
+            if (!excludedPermissions.includes(permission.name)) {
+                if (!groupedPermissions[category]) {
+                    groupedPermissions[category] = [];
+                }
+
+                groupedPermissions[category].push(permission);
+            }
+        });
+
+        return groupedPermissions;
+    }
+
+    function groupPermissions(permissions) {
+        const excludedPermissions = [
+            "profile.edit",
+            "profile.update",
+            "profile.destroy",
+        ];
+
+        const groupedPermissions = {};
+
+        permissions.forEach((permission) => {
+            let category = permission.description.split(' ');
+
+            if (category.length >= 2) {
+                category = category[1];
+            }
 
             if (!excludedPermissions.includes(permission.name)) {
                 if (!groupedPermissions[category]) {
@@ -130,52 +158,54 @@ export default function Dashboard(props) {
                                     </div>
                                     <div className="mb-4">
                                         <label className="text-gray-900 dark:text-gray-100">
-                                            Listas de Permisos
+                                            Listas de Permisos:
                                             <span className="text-red-500 ml-1">
                                                 *
                                             </span>
                                         </label>
-
-                                        {Object.entries(
-                                            groupPermissions(dataP)
-                                        ).map(([category, permissions]) => (
-                                            <div key={category}>
-                                                <h3 className="text-gray-900 dark:text-gray-100">
-                                                    {category}
-                                                </h3>
-                                                {permissions.map(
-                                                    (permission) => (
-                                                        <li
-                                                            key={permission.id}
-                                                            className="text-gray-900 dark:text-gray-100 list-none"
-                                                        >
-                                                            <label>
-                                                                <input
-                                                                    type="checkbox"
-                                                                    value={
-                                                                        permission.id
-                                                                    }
-                                                                    checked={permisosSeleccionados.includes(
-                                                                        permission.id
-                                                                    )}
-                                                                    onChange={() =>
-                                                                        handleCheckboxChange(
+                                        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 grid-flow-row gap-4">
+                                            {Object.entries(
+                                                groupPermissions(dataP)
+                                            ).map(([category, permissions]) => (
+                                                <div key={category}>
+                                                    <br />
+                                                    <b className="dark:text-sky-500 text-sky-600">
+                                                        {category}
+                                                    </b>
+                                                    {permissions.map(
+                                                        (permission) => (
+                                                            <li
+                                                                key={permission.id}
+                                                                className="text-gray-900 dark:text-gray-100 list-none"
+                                                            >
+                                                                <label>
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        value={
                                                                             permission.id
-                                                                        )
+                                                                        }
+                                                                        checked={permisosSeleccionados.includes(
+                                                                            permission.id
+                                                                        )}
+                                                                        onChange={() =>
+                                                                            handleCheckboxChange(
+                                                                                permission.id
+                                                                            )
+                                                                        }
+                                                                        className="mr-2"
+                                                                    />
+                                                                    {
+                                                                        permission.description
                                                                     }
-                                                                    className="mr-2"
-                                                                />
-                                                                {
-                                                                    permission.description
-                                                                }
-                                                            </label>
-                                                        </li>
-                                                    )
-                                                )}
-                                            </div>
-                                        ))}
+                                                                </label>
+                                                            </li>
+                                                        )
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="text-gray-900 dark:text-gray-100">
+                                    {/* <div className="text-gray-900 dark:text-gray-100">
                                         <h3>Permisos seleccionados:</h3>
                                         <ul className="ml-5 list-disc">
                                             {permisosSeleccionados.map((id) => (
@@ -190,9 +220,9 @@ export default function Dashboard(props) {
                                                 </li>
                                             ))}
                                         </ul>
-                                    </div>
+                                    </div> */}
                                 </div>
-                                <div className="mt-4">
+                                <div className="mt-8">
                                     <button
                                         type="submit"
                                         disabled={processing}
