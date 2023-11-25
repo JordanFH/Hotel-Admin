@@ -20,6 +20,7 @@ class RoleSeeder extends Seeder
 
         $all = [$role0, $role1, $role2];
         $onlyAdmin = [$role0, $role1];
+        $onlySuperAdmin = [$role0];
 
 
         // Crear el permiso home
@@ -32,6 +33,14 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'profile.update', 'description' => 'Actualizar Perfil'])->syncRoles($all);
         Permission::create(['name' => 'profile.destroy', 'description' => 'Eliminar Perfil'])->syncRoles($all);
 
+        // Crear el permiso para las rutas de roles y permisos
+        Permission::create(['name' => 'roles', 'description' => 'Listar Roles'])->syncRoles($onlySuperAdmin);
+        Permission::create(['name' => 'roles.create', 'description' => 'Crear Roles'])->syncRoles($onlySuperAdmin);
+        Permission::create(['name' => 'roles.store', 'description' => 'Guardar Roles'])->syncRoles($onlySuperAdmin);
+        Permission::create(['name' => 'roles.edit', 'description' => 'Editar Roles'])->syncRoles($onlySuperAdmin);
+        Permission::create(['name' => 'roles.update', 'description' => 'Actualizar Roles'])->syncRoles($onlySuperAdmin);
+        Permission::create(['name' => 'roles.destroy', 'description' => 'Eliminar Roles'])->syncRoles($onlySuperAdmin);
+
         $routes = [
             'categorias' => 'Categorías',
             'productos' => 'Productos',
@@ -39,7 +48,6 @@ class RoleSeeder extends Seeder
             'clientes' => 'Clientes',
             'cotizaciones' => 'Cotizaciones',
             'users' => 'Usuarios',
-            'roles' => 'Roles',
         ];
 
         foreach ($routes as $route => $description) {
