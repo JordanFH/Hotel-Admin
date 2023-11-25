@@ -15,7 +15,7 @@ class ReportCotizacionController extends Controller
     public function __construct()
     {
         // Solo permitir a los usuarios con el rol de administrador acceder a todas estas rutas
-        $this->middleware('role:Admin');
+        $this->middleware('role:SuperAdmin|Admin');
     }
 
     public function report(){

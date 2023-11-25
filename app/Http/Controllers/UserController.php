@@ -13,7 +13,7 @@ class UserController extends Controller
     public function __construct()
     {
         // Solo permitir a los usuarios con el rol de administrador acceder a todas estas rutas
-        $this->middleware(['auth', 'role:Admin']);
+        $this->middleware(['auth', 'role:SuperAdmin|Admin']);
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +23,8 @@ class UserController extends Controller
         // listar usuarios y ordenarlos por nombre, pero no el usuario actual, ni el rol de Admin
         $users = User::where('id', '!=', Auth::user()->id)
             ->whereHas('roles', function ($query) {
-                $query->where('name', '!=', 'Admin');
+                $query->where('name', '!=', 'SuperAdmin')
+                    ->where('name', '!=', 'Admin');
             })
             ->orderBy('name')
             ->with('roles')

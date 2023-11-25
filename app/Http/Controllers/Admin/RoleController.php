@@ -13,7 +13,7 @@ class RoleController extends Controller
     public function __construct()
     {
         // Solo permitir a los usuarios con el rol de administrador acceder a todas estas rutas
-        $this->middleware(['auth', 'role:Admin']);
+        $this->middleware(['auth', 'role:SuperAdmin|Admin']);
     }
     /**
      * Display a listing of the resource.

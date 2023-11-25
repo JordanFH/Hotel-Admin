@@ -26,16 +26,24 @@ export default function Authenticated({ auth, header, children }) {
         if (auth.user) {
             if (auth.user.roles && auth.user.roles[0]) {
                 if (auth.user.roles[0].name === "Admin") {
-                    // console.log("auth.user:", auth.user);
-                    // console.log("auth.user.roles:", auth.user.roles);
                     return true;
                 } else {
                     return false;
                 }
             }
         }
-        // console.log("auth.user:", auth.user);
-        // console.log("auth.user.roles:", auth.user.roles);
+    }
+
+    function handleIsSuperAdmin() {
+        if (auth.user) {
+            if (auth.user.roles && auth.user.roles[0]) {
+                if (auth.user.roles[0].name === "SuperAdmin") {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
     }
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -378,7 +386,28 @@ export default function Authenticated({ auth, header, children }) {
                                                 </span>
                                             </AppLink>
                                         </li>
-                                        {/* <li>
+                                    </>
+                                )}
+                                {handleIsSuperAdmin() && (
+                                    <>
+                                        <hr className="border-gray-800 dark:border-gray-400" />
+                                        <li>
+                                            <AppLink
+                                                href={route("users.index")}
+                                                active={route()
+                                                    .current()
+                                                    .includes("users")}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faUserGroup}
+                                                    className="text-xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white w-6 h-6"
+                                                />
+                                                <span className="ml-3">
+                                                    Usuarios
+                                                </span>
+                                            </AppLink>
+                                        </li>
+                                        <li>
                                             <AppLink
                                                 href={route("roles.index")}
                                                 active={route()
@@ -393,7 +422,7 @@ export default function Authenticated({ auth, header, children }) {
                                                     Roles
                                                 </span>
                                             </AppLink>
-                                        </li> */}
+                                        </li>
                                     </>
                                 )}
                             </ul>

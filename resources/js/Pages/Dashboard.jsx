@@ -20,7 +20,6 @@ export default function Dashboard(props) {
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             ¡Bienvenido {props.auth.user.name}!
                         </div>
-                        {console.log(props.auth)}
                     </div>
                 </div>
             </div>

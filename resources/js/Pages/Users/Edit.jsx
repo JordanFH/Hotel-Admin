@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm, usePage, Link } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -51,8 +51,10 @@ export default function Dashboard(props) {
                                 <div className="flex flex-col">
                                     <div className="mb-4">
                                         <label className="text-gray-900 dark:text-gray-100">
-                                            Rol a asigna al usuario {user.name}
-                                            <span className="text-red-500 ml-1">*</span>
+                                            Rol a asignar a{" "}
+                                            <b className="break-words text-emerald-500">
+                                                {user.name}
+                                            </b>
                                         </label>
                                         <select
                                             name="role"
@@ -63,10 +65,16 @@ export default function Dashboard(props) {
                                             }
                                             className="mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                                         >
-                                            <option value="">Selecciona un rol</option> {/* Opción en blanco */}
+                                            <option value="">
+                                                Selecciona un rol
+                                            </option>{" "}
+                                            {/* Opción en blanco */}
                                             {dataP.map((role) => (
-                                                <option key={role.id}> {/* Asigna una clave única */}
-                                                    {role.name} {/* Usar llaves para interpolar el valor */}
+                                                <option key={role.id}>
+                                                    {" "}
+                                                    {/* Asigna una clave única */}
+                                                    {role.name}{" "}
+                                                    {/* Usar llaves para interpolar el valor */}
                                                 </option>
                                             ))}
                                         </select>
