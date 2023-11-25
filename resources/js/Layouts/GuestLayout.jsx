@@ -41,11 +41,11 @@ export default function Guest({ children }) {
                     <img
                         src={logo}
                         className="flex mx-auto py-4"
-                        alt="Logo ILEG"
+                        alt="Logo"
                         width="175px"
                     />
                     <h2 className="mt-4 text-xl font-semibold text-gray-900 dark:text-white">
-                        Instituto Latinoamericano en Educación Global
+                        Hotel Admin
                     </h2>
                 </Link>
             </div>

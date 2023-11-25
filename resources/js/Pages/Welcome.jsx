@@ -70,22 +70,20 @@ export default function Welcome(props) {
                                     width="175px"
                                 />
                                 <h2 className="mt-4 text-xl font-semibold text-gray-900 dark:text-white">
-                                    Instituto Latinoamericano en Educación
-                                    Global
+                                    Hotel Admin
                                 </h2>
 
                                 <p className="text-center mt-6 text-gray-500 dark:text-gray-200">
                                     {props.auth.user ? (
                                         <>
                                             {greeting}, has iniciado sesión.
-                                            Puedes ingresar <br /> a la aula
-                                            virtual de ILEG.
+                                            Puedes ingresar <br /> al sistema.
                                         </>
                                     ) : (
                                         <>
                                             {greeting}, debes iniciar sesión
-                                            para poder ingresar <br /> a la aula
-                                            virtual de ILEG.
+                                            para poder ingresar <br /> al
+                                            sistema.
                                         </>
                                     )}
                                 </p>

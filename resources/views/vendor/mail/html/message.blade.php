@@ -2,7 +2,7 @@
 {{-- Header --}}
 <x-slot:header>
 <x-mail::header :url="config('app.url')">
-Instituto Latinoamericano en Educación Global
+    Hotel Admin
 </x-mail::header>
 </x-slot:header>
 
