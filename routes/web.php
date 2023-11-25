@@ -38,7 +38,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:Admin|User'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
@@ -50,8 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('servicios', ServicioController::class)->names('servicios');
     Route::resource('productos', ProductoController::class)->names('productos');
     Route::resource('clientes', ClienteController::class)->names('clientes');
-    Route::resource('roles', RoleController::class)->names('roles');
     Route::resource('cotizaciones', CotizacionController::class)->names('cotizaciones');
+    // Route::resource('roles', RoleController::class)->names('roles');
 
     //para cotizacion
     Route::get('/report/cotizacion', [ReportCotizacionController::class, 'report'])->name('cotizaciones.report');

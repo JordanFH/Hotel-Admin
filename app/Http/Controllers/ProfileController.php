@@ -13,6 +13,12 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+        $this->middleware('role:Admin|User');
+    }
+
     /**
      * Display the user's profile form.
      */

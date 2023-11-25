@@ -378,7 +378,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 </span>
                                             </AppLink>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <AppLink
                                                 href={route("roles.index")}
                                                 active={route()
@@ -393,7 +393,7 @@ export default function Authenticated({ auth, header, children }) {
                                                     Roles
                                                 </span>
                                             </AppLink>
-                                        </li>
+                                        </li> */}
                                     </>
                                 )}
                             </ul>
