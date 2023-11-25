@@ -67,7 +67,7 @@ export default function Login({ status, canResetPassword }) {
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Contraseña" />
 
-                    <TextInput
+                    {/* <TextInput
                         id="password"
                         type="password"
                         name="password"
@@ -75,9 +75,13 @@ export default function Login({ status, canResetPassword }) {
                         className="mt-1 block w-full"
                         autoComplete="current-password"
                         onChange={handleOnChange}
-                    />
+                    /> */}
 
-                    <PasswordInput />
+                    <PasswordInput
+                        name="password"
+                        value={data.password}
+                        onChange={handleOnChange}
+                    />
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 

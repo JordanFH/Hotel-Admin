@@ -19,6 +19,7 @@ function PasswordInput(props) {
             onBlur={handleBlur}
             toggleMask
             feedback={false}
+            autoComplete="current-password"
             className='mt-1 block w-full'
             inputStyle={{
                 width: "100%",
