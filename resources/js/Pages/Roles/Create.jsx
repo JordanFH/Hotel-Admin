@@ -166,7 +166,7 @@ export default function Dashboard(props) {
                                                                     className="mr-2"
                                                                 />
                                                                 {
-                                                                    permission.name
+                                                                    permission.description
                                                                 }
                                                             </label>
                                                         </li>
