@@ -5,5 +5,15 @@
 input[type="date"]::-webkit-calendar-picker-indicator {
     /* filter: invert(0.5) sepia(1) hue-rotate(190deg) saturate(5); */
     /* color: #676E7C */
-    filter: invert(0.40) sepia(15%) hue-rotate(205deg) saturate(5);
+    filter: invert(0.4) sepia(15%) hue-rotate(205deg) saturate(5);
+}
+
+.p-input-icon-right > i,
+.p-input-icon-right > svg,
+.p-input-icon-right > .p-input-suffix {
+    transform: translateY(-25%);
+}
+
+.p-input-icon-right i svg{
+    color: #676E7C;
 }
