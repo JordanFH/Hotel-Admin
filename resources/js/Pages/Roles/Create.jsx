@@ -221,6 +221,11 @@ export default function Dashboard(props) {
                                             ))}
                                         </ul>
                                     </div> */}
+
+                                    <InputError
+                                        message={errors.permissions}
+                                        className="mt-2"
+                                    />
                                 </div>
                                 <div className="mt-8">
                                     <button
