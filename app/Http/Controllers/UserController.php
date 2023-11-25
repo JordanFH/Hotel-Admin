@@ -20,15 +20,24 @@ class UserController extends Controller
      */
     public function index()
     {
-        // listar usuarios y ordenarlos por nombre, pero no el usuario actual, ni el rol de Admin
-        $users = User::where('id', '!=', Auth::user()->id)
-            ->whereHas('roles', function ($query) {
-                $query->where('name', '!=', 'SuperAdmin')
-                    ->where('name', '!=', 'Admin');
-            })
-            ->orderBy('name')
-            ->with('roles')
-            ->get();
+        if (Auth::user()->hasRole('SuperAdmin')) {
+            $users = User::where('id', '!=', Auth::user()->id)
+                ->whereHas('roles', function ($query) {
+                    $query->where('name', '!=', 'SuperAdmin');
+                })
+                ->orderBy('name')
+                ->with('roles')
+                ->get();
+        } else if (Auth::user()->hasRole('Admin')) {
+            $users = User::where('id', '!=', Auth::user()->id)
+                ->whereHas('roles', function ($query) {
+                    $query->where('name', '!=', 'SuperAdmin')
+                        ->where('name', '!=', 'Admin');
+                })
+                ->orderBy('name')
+                ->with('roles')
+                ->get();
+        }
         return Inertia::render('Users/Index', ['users' => $users]);
     }
 
@@ -62,7 +71,10 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::find($id);
-        $roles = Role::all();
+        // Si el usuario actual es SuperAdmin, mostrar todos los roles menos SuperAdmin
+        if (Auth::user()->hasRole('SuperAdmin|Admin')) {
+            $roles = Role::where('name', '!=', 'SuperAdmin')->get();
+        }
         return Inertia::render('Users/Edit', ['user' => $user, 'roles' => $roles]);
     }
 

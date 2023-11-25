@@ -5,7 +5,6 @@ import {faPencilAlt, faPlus, faTrashAlt} from "@fortawesome/free-solid-svg-icons
 import React, {useEffect, useRef, useState} from "react";
 import Modal from "@/Components/Modal";
 import axios from 'axios';
-import {Toast} from "primereact/toast";
 
 export default function Dashboard(props) {
     const {users} = usePage().props;
@@ -50,20 +49,14 @@ export default function Dashboard(props) {
             // Actualizar la lista de categorías después de eliminar
             const updated = data.filter((user) => user.id !== id);
             setData(updated);
-            const mensaje = "El elemento se eliminó correctamente.";
-            showSuccess(mensaje);
         } catch (error) {
             if (error.response.status === 500) {
-
-                const mensaje = "El elemento está siendo utilizado.";
-
-                // Mostrar un mensaje de error indicando que la categoría no se puede eliminar
-                showError(mensaje);
+                // Manejar errores de validación
+                console.error(error.response.data);
             } else {
                 // Manejar otros errores
                 console.error(error);
                 setIsButtonDisabled(false);
-                showError();
             }
             closeModal();
         }
@@ -82,18 +75,6 @@ export default function Dashboard(props) {
         setModalOpen(false);
     };
 
-    const toast = useRef(null);
-
-    const showSuccess = (message) => {
-        toast.current.show({
-            severity: 'success', summary: 'Éxito', detail: message, life: 2000
-        });
-    }
-
-    const showError = (message) => {
-        toast.current.show({severity: 'error', summary: 'Error', detail: message, life: 3000});
-    }
-
     return (<Authenticated
         auth={props.auth}
         errors={props.errors}
@@ -103,8 +84,6 @@ export default function Dashboard(props) {
         </h2>}
     >
         <Head title="Usuarios"/>
-
-        <Toast ref={toast} position="bottom-center"/>
 
         <div className="py-8">
             <div className="max-w-8xl mx-auto px-6 lg:px-8">
@@ -138,13 +117,16 @@ export default function Dashboard(props) {
                                     <th className="uppercase border-r border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 px-4 py-3">
                                         Email
                                     </th>
+                                    <th className="uppercase text-center border-r border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 px-4 py-3">
+                                        Roles
+                                    </th>
                                     <th className="uppercase text-center border-b border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 px-4 py-3">
                                         Opciones
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {data.map(({id, name, email}, index) => (<tr
+                                {data.map(({id, name, email, roles}, index) => (<tr
                                     className="[&:not(:last-child)]:border-b dark:border-gray-700 border-gray-300"
                                     key={index}
                                 >
@@ -156,6 +138,14 @@ export default function Dashboard(props) {
                                     </td>
                                     <td className="border-r dark:border-gray-700 border-gray-300 px-4 py-2 text-gray-900 dark:text-gray-100">
                                         {email}
+                                    </td>
+                                    <td className="border-r text-center dark:border-gray-700 border-gray-300 px-4 py-2 text-gray-900 dark:text-gray-100">
+                                        {roles.map(({name}, index) => (<span
+                                            key={index}
+                                            className="inline-flex items-center justify-center px-2 py-1 text-sm font-bold leading-none text-green-100 bg-green-600 rounded-full"
+                                        >
+                                            {name}
+                                        </span>))}
                                     </td>
                                     <td className="text-center dark:border-gray-700 border-gray-300 px-4 py-2">
                                         <Link
