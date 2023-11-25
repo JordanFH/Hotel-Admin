@@ -186,7 +186,7 @@ export default function Dashboard(props) {
                                 {data.length === 0 && (<tr>
                                     <td
                                         className="px-6 py-4 text-center px-4 py-2 text-gray-900 dark:text-gray-100"
-                                        colSpan="4"
+                                        colSpan="5"
                                     >
                                         No se encontraron usuarios.
                                     </td>
