@@ -55,11 +55,26 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => ['required', 'max:255', 'unique:roles'],
-            'permissions' => ['required', 'array'],
+            'permissions' => 'required|array',
         ]);
 
         $role = Role::create(['name' => $request->name]);
-        $role->permissions()->sync($request->permissions);
+
+        // Definir los permisos por defecto
+        $defaultPermissions = [
+            'profile.edit',
+            'profile.update',
+            'profile.destroy',
+        ];
+
+        // Obtener permisos del request y agregar los permisos de perfil
+        $requestedPermissions = array_merge($request->permissions, $defaultPermissions);
+
+        // Filtrar permisos duplicados
+        $uniquePermissions = array_unique($requestedPermissions);
+
+        // Asignar permisos al nuevo rol
+        $role->syncPermissions($uniquePermissions);
 
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully.');

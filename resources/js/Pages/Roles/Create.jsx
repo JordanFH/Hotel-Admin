@@ -51,16 +51,24 @@ export default function Dashboard(props) {
     }
 
     function groupPermissions(permissions) {
+        const excludedPermissions = [
+            "profile.edit",
+            "profile.update",
+            "profile.destroy",
+        ];
+
         const groupedPermissions = {};
 
         permissions.forEach((permission) => {
             const category = permission.name.split(".")[0];
 
-            if (!groupedPermissions[category]) {
-                groupedPermissions[category] = [];
-            }
+            if (!excludedPermissions.includes(permission.name)) {
+                if (!groupedPermissions[category]) {
+                    groupedPermissions[category] = [];
+                }
 
-            groupedPermissions[category].push(permission);
+                groupedPermissions[category].push(permission);
+            }
         });
 
         return groupedPermissions;
@@ -188,9 +196,8 @@ export default function Dashboard(props) {
                                     <button
                                         type="submit"
                                         disabled={processing}
-                                        className={`px-7 py-2 font-bold text-white bg-green-500 hover:bg-green-600 rounded ${
-                                            processing && "opacity-25"
-                                        }`}
+                                        className={`px-7 py-2 font-bold text-white bg-green-500 hover:bg-green-600 rounded ${processing && "opacity-25"
+                                            }`}
                                     >
                                         <FontAwesomeIcon
                                             icon={faSave}
