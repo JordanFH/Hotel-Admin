@@ -53,6 +53,22 @@ export default function Dashboard(props) {
     const categories = getPermissionCategories(permissions);
     console.log(categories);
 
+    function groupPermissions(permissions) {
+        const groupedPermissions = {};
+
+        permissions.forEach((permission) => {
+            const category = permission.name.split(".")[0];
+
+            if (!groupedPermissions[category]) {
+                groupedPermissions[category] = [];
+            }
+
+            groupedPermissions[category].push(permission);
+        });
+
+        return groupedPermissions;
+    }
+
     return (
         <Authenticated
             auth={props.auth}
@@ -115,28 +131,43 @@ export default function Dashboard(props) {
                                             </span>
                                         </label>
 
-                                        {dataP.map((permission) => (
-                                            <li
-                                                key={permission.id}
-                                                className="text-gray-900 dark:text-gray-100 list-none"
-                                            >
-                                                <label>
-                                                    <input
-                                                        type="checkbox"
-                                                        value={permission.id}
-                                                        checked={permisosSeleccionados.includes(
-                                                            permission.id
-                                                        )}
-                                                        onChange={() =>
-                                                            handleCheckboxChange(
-                                                                permission.id
-                                                            )
-                                                        }
-                                                        className="mr-2"
-                                                    />
-                                                    {permission.name}
-                                                </label>
-                                            </li>
+                                        {Object.entries(
+                                            groupPermissions(dataP)
+                                        ).map(([category, permissions]) => (
+                                            <div key={category}>
+                                                <h3 className="text-gray-900 dark:text-gray-100">
+                                                    {category}
+                                                </h3>
+                                                {permissions.map(
+                                                    (permission) => (
+                                                        <li
+                                                            key={permission.id}
+                                                            className="text-gray-900 dark:text-gray-100 list-none"
+                                                        >
+                                                            <label>
+                                                                <input
+                                                                    type="checkbox"
+                                                                    value={
+                                                                        permission.id
+                                                                    }
+                                                                    checked={permisosSeleccionados.includes(
+                                                                        permission.id
+                                                                    )}
+                                                                    onChange={() =>
+                                                                        handleCheckboxChange(
+                                                                            permission.id
+                                                                        )
+                                                                    }
+                                                                    className="mr-2"
+                                                                />
+                                                                {
+                                                                    permission.name
+                                                                }
+                                                            </label>
+                                                        </li>
+                                                    )
+                                                )}
+                                            </div>
                                         ))}
                                     </div>
                                     <div className="text-gray-900 dark:text-gray-100">
