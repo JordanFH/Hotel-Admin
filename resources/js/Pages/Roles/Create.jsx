@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import {Head, useForm, Link, usePage} from "@inertiajs/react";
+import { Head, useForm, Link, usePage } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackward } from "@fortawesome/free-solid-svg-icons";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 
 export default function Dashboard(props) {
-    const {permissions} = usePage().props;
+    const { permissions } = usePage().props;
     const [dataP, setDataP] = useState(permissions);
     const { data, setData, errors, post, processing } = useForm({
         permissions: [],
@@ -19,8 +19,13 @@ export default function Dashboard(props) {
         // Verifica si el permiso ya está en la lista de seleccionados
         if (permisosSeleccionados.includes(permiso)) {
             // Si ya está, lo eliminamos
-            setPermisosSeleccionados(permisosSeleccionados.filter(p => p !== permiso));
-            setData("permissions", permisosSeleccionados.filter(p => p !== permiso));
+            setPermisosSeleccionados(
+                permisosSeleccionados.filter((p) => p !== permiso)
+            );
+            setData(
+                "permissions",
+                permisosSeleccionados.filter((p) => p !== permiso)
+            );
         } else {
             // Si no está, lo agregamos
             setPermisosSeleccionados([...permisosSeleccionados, permiso]);
@@ -34,7 +39,19 @@ export default function Dashboard(props) {
         post(route("roles.store"));
     }
 
-    // Función para agrupar los permisos por modulo
+    function getPermissionCategories(permissions) {
+        const categories = new Set();
+
+        permissions.forEach((permission) => {
+            const category = permission.name.split(".")[0];
+            categories.add(category);
+        });
+
+        return Array.from(categories);
+    }
+
+    const categories = getPermissionCategories(permissions);
+    console.log(categories);
 
     return (
         <Authenticated
@@ -70,7 +87,9 @@ export default function Dashboard(props) {
                                     <div className="mb-4">
                                         <label className="text-gray-900 dark:text-gray-100">
                                             Nombre del rol a crear
-                                            <span className="text-red-500 ml-1">*</span>
+                                            <span className="text-red-500 ml-1">
+                                                *
+                                            </span>
                                         </label>
                                         <input
                                             type="text"
@@ -80,10 +99,7 @@ export default function Dashboard(props) {
                                             autoFocus
                                             value={data.name}
                                             onChange={(e) =>
-                                                setData(
-                                                    "name",
-                                                    e.target.value
-                                                )
+                                                setData("name", e.target.value)
                                             }
                                         />
                                         <InputError
@@ -94,17 +110,28 @@ export default function Dashboard(props) {
                                     <div className="mb-4">
                                         <label className="text-gray-900 dark:text-gray-100">
                                             Listas de Permisos
-                                            <span className="text-red-500 ml-1">*</span>
+                                            <span className="text-red-500 ml-1">
+                                                *
+                                            </span>
                                         </label>
 
                                         {dataP.map((permission) => (
-                                            <li key={permission.id} className="text-gray-900 dark:text-gray-100 list-none">
+                                            <li
+                                                key={permission.id}
+                                                className="text-gray-900 dark:text-gray-100 list-none"
+                                            >
                                                 <label>
                                                     <input
                                                         type="checkbox"
                                                         value={permission.id}
-                                                        checked={permisosSeleccionados.includes(permission.id)}
-                                                        onChange={() => handleCheckboxChange(permission.id)}
+                                                        checked={permisosSeleccionados.includes(
+                                                            permission.id
+                                                        )}
+                                                        onChange={() =>
+                                                            handleCheckboxChange(
+                                                                permission.id
+                                                            )
+                                                        }
                                                         className="mr-2"
                                                     />
                                                     {permission.name}
@@ -116,7 +143,15 @@ export default function Dashboard(props) {
                                         <h3>Permisos seleccionados:</h3>
                                         <ul className="ml-5 list-disc">
                                             {permisosSeleccionados.map((id) => (
-                                                <li key={id}>{permissions.find(permiso => permiso.id === id).name}</li>
+                                                <li key={id}>
+                                                    {
+                                                        permissions.find(
+                                                            (permiso) =>
+                                                                permiso.id ===
+                                                                id
+                                                        ).name
+                                                    }
+                                                </li>
                                             ))}
                                         </ul>
                                     </div>
