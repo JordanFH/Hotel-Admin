@@ -34,6 +34,8 @@ export default function Dashboard(props) {
         post(route("roles.store"));
     }
 
+    // Función para agrupar los permisos por modulo
+
     return (
         <Authenticated
             auth={props.auth}

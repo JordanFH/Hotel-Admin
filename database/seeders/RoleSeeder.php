@@ -19,7 +19,14 @@ class RoleSeeder extends Seeder
         $role2 = Role::findOrCreate('User', 'web');
 
         // Buscar o crear el permiso home
-        Permission::findOrCreate('home', 'web');
+        // Permission::findOrCreate('home', 'web');
+
+        // Buscar o crear el permiso para las rutas de dashboard y profile
+        Permission::findOrCreate('dashboard', 'web')->syncRoles([$role0, $role1, $role2]);
+
+        // Permission::findOrCreate('profile.edit', 'web')->syncRoles([$role0, $role1, $role2]);
+        // Permission::findOrCreate('profile.update', 'web')->syncRoles([$role0, $role1, $role2]);
+        // Permission::findOrCreate('profile.destroy', 'web')->syncRoles([$role0, $role1, $role2]);
 
         // Buscar o crear el permiso para las rutas de categorias
         Permission::findOrCreate('categorias', 'web')->syncRoles([$role0, $role1, $role2]);
@@ -76,11 +83,5 @@ class RoleSeeder extends Seeder
         Permission::findOrCreate('roles.edit', 'web')->syncRoles([$role0]);
         Permission::findOrCreate('roles.update', 'web')->syncRoles([$role0]);
         Permission::findOrCreate('roles.destroy', 'web')->syncRoles([$role0]);
-
-        // Buscar o crear el permiso para las rutas de dashboard y profile
-        Permission::findOrCreate('dashboard', 'web')->syncRoles([$role0, $role1, $role2]);
-        Permission::findOrCreate('profile.edit', 'web')->syncRoles([$role0, $role1, $role2]);
-        Permission::findOrCreate('profile.update', 'web')->syncRoles([$role0, $role1, $role2]);
-        Permission::findOrCreate('profile.destroy', 'web')->syncRoles([$role0, $role1, $role2]);
     }
 }
